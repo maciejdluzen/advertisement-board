@@ -59,15 +59,15 @@ public class AdvertisementController {
     
     @GetMapping("/pages/{pageId}")
     public ResponseEntity<AdvertisementList> advertisementsForPage(@PathVariable("pageId") int pageId) {
-        Page<Advertisement> page = adRepository.findAll(new PageRequest(pageId, DEFAULT_PAGE_SIZE));
+        Page<Advertisement> page = adRepository.findAll(PageRequest.of(pageId, DEFAULT_PAGE_SIZE));
         return new ResponseEntity<AdvertisementList>(new AdvertisementList(page.getContent()), 
                 buildLinkHeader(page, PATH_PAGES), HttpStatus.OK);
     }
 
     @GetMapping("/{id}")
-    public Advertisement advertisementById(@PathVariable("id") @Min(0) Long id) {
+    public Advertisement advertisementById(@PathVariable("id") @Min(0) Long id) throws NotFoundException {
         throwIfNonexisting(id);
-        return adRepository.findOne(id);
+        return adRepository.getOne(id);
     }
     
     @PostMapping
@@ -90,13 +90,13 @@ public class AdvertisementController {
     
     @DeleteMapping("{id}")
     @ResponseStatus(HttpStatus.NO_CONTENT)
-    public void deleteById(@PathVariable("id") Long id) {
+    public void deleteById(@PathVariable("id") Long id) throws NotFoundException {
         throwIfNonexisting(id);
-        adRepository.delete(id);
+        adRepository.deleteById(id);
     }
     
     @PutMapping("/{id}")
-    public Advertisement update(@PathVariable("id") Long id, @RequestBody Advertisement updatedAd) {
+    public Advertisement update(@PathVariable("id") Long id, @RequestBody Advertisement updatedAd) throws NotFoundException {
         throwIfInconsistent(id, updatedAd.getId());
         throwIfNonexisting(id);
         return adRepository.save(updatedAd);
@@ -127,8 +127,8 @@ public class AdvertisementController {
         }
     }
     
-    private void throwIfNonexisting(Long id) {
-        if (!adRepository.exists(id)) {
+    private void throwIfNonexisting(Long id) throws NotFoundException {
+        if (!adRepository.existsById(id)) {
             throw new NotFoundException(id + " not found");
         }
     }

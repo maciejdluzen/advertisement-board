@@ -3,9 +3,9 @@ package com.adsb.models;
 import java.util.List;
 
 import org.springframework.data.domain.Sort;
-import org.springframework.data.repository.PagingAndSortingRepository;
+import org.springframework.data.jpa.repository.JpaRepository;
 
-public interface AdvertisementRepository extends PagingAndSortingRepository<Advertisement, Long> {
+public interface AdvertisementRepository extends JpaRepository<Advertisement, Long> {
 
     List<Advertisement> findByTitle(String title);
 
