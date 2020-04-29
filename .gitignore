@@ -1,0 +1,52 @@
+HELP.md
+target/
+!.mvn/wrapper/maven-wrapper.jar
+!**/src/main/**
+!**/src/test/**
+
+### STS ###
+.apt_generated
+.classpath
+.factorypath
+.project
+.settings
+.springBeans
+.sts4-cache
+
+### IntelliJ IDEA ###
+.idea
+*.iws
+*.iml
+*.ipr
+
+### NetBeans ###
+/nbproject/private/
+/nbbuild/
+/dist/
+/nbdist/
+/.nb-gradle/
+build/
+
+### VS Code ###
+.vscode/
+
+.DS_Store
+thumbs.db
+target
+embedded_tomcat
+/bin/
+manifest-*
+*.log
+.settings/org.eclipse.wst.common.project.facet.*
+settings/
+target/
+
+### NodeJS related ###
+npm-debug.log
+node_modules
+
+### IntelliJ IDEA ###
+.idea
+*.iws
+*.iml
+*.ipr
