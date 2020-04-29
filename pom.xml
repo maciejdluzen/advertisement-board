@@ -22,13 +22,113 @@
 	<dependencies>
 		<dependency>
 			<groupId>org.springframework.boot</groupId>
+			<artifactId>spring-boot-starter-data-jpa</artifactId>
+		</dependency>
+		<dependency>
+			<groupId>org.projectlombok</groupId>
+			<artifactId>lombok</artifactId>
+			<optional>true</optional>
+		</dependency>
+		<dependency>
+			<groupId>org.springframework.boot</groupId>
 			<artifactId>spring-boot-starter-web</artifactId>
 		</dependency>
-
 		<dependency>
 			<groupId>org.springframework.boot</groupId>
 			<artifactId>spring-boot-starter-tomcat</artifactId>
 			<scope>provided</scope>
+		</dependency>
+		<dependency>
+		    <groupId>org.springframework.cloud</groupId>
+		    <artifactId>spring-cloud-cloudfoundry-connector</artifactId>
+		    <scope>runtime</scope>
+		</dependency>
+		<dependency>
+		    <groupId>com.sap.hana.cloud</groupId>
+		    <artifactId>spring-cloud-cloudfoundry-hana-service-connector</artifactId>
+		    <version>1.0.4.RELEASE</version>
+		</dependency>
+		<dependency>
+		    <groupId>org.springframework.cloud</groupId>
+		    <artifactId>spring-cloud-spring-service-connector</artifactId>
+		  </dependency>
+		  
+		  <!-- APIs for servlets and injection -->
+		<dependency>
+			<groupId>javax.servlet</groupId>
+			<artifactId>javax.servlet-api</artifactId>
+			<scope>provided</scope>
+		</dependency>
+		<dependency>
+			<groupId>javax.inject</groupId>
+			<artifactId>javax.inject</artifactId>
+			<version>1</version>
+		</dependency>
+		  
+		 <!-- JSON conversion -->
+		<dependency>
+			<groupId>com.fasterxml.jackson.core</groupId>
+			<artifactId>jackson-databind</artifactId>
+		</dependency>
+		
+		<!-- Bean validation (@NotNull etc.) -->
+		<dependency>
+    		<groupId>org.hibernate</groupId>
+    		<artifactId>hibernate-validator</artifactId>
+    		<version>5.2.1.Final</version>
+		</dependency>
+		
+		<!-- MethodValidationPostProcessor relies on Expression Language -->
+		<dependency>
+			<groupId>javax.el</groupId>
+			<artifactId>javax.el-api</artifactId>
+			<version>3.0.1-b06</version>
+		</dependency>
+		
+		<dependency>
+    		<groupId>org.springframework.data</groupId>
+    		<artifactId>spring-data-jpa</artifactId>
+    		<exclusions>
+        		<exclusion>
+            		<!-- We need spring-core 4.2 or later, but spring-data includes 4.1.9 -->
+            		<groupId>org.springframework</groupId>
+            		<artifactId>spring-core</artifactId>
+        		</exclusion>
+    		</exclusions>
+		</dependency>
+		
+		<!-- EclipseLink as JPA implementation -->
+		<dependency>
+    		<groupId>org.eclipse.persistence</groupId>
+    		<artifactId>org.eclipse.persistence.jpa</artifactId>
+    		<version>2.6.2</version>
+		</dependency>
+		  
+		  <!-- https://mvnrepository.com/artifact/com.sap.cloud.sdk.s4hana/s4hana-connectivity -->
+        <dependency>
+            <groupId>com.sap.cloud.sdk.s4hana</groupId>
+            <artifactId>s4hana-connectivity</artifactId>
+            <version>3.11.0</version>
+        </dependency>
+
+        <!-- https://mvnrepository.com/artifact/org.cloudfoundry.identity/cloudfoundry-identity-client-lib -->
+        <dependency>
+            <groupId>org.cloudfoundry.identity</groupId>
+            <artifactId>cloudfoundry-identity-client-lib</artifactId>
+            <version>4.19.2</version>
+        </dependency>
+
+        <!-- https://mvnrepository.com/artifact/com.sap.cloud.servicesdk/odatav2-connectivity -->
+        <dependency>
+            <groupId>com.sap.cloud.servicesdk</groupId>
+            <artifactId>odatav2-connectivity</artifactId>
+            <version>1.37.0</version>
+        </dependency>
+		 
+		<dependency>
+		    <groupId>com.sap.cloud.db.jdbc</groupId>
+		    <artifactId>ngdbc</artifactId>
+		    <version>2.3.55</version>
 		</dependency>
 		<dependency>
 			<groupId>org.springframework.boot</groupId>
@@ -40,8 +140,37 @@
 					<artifactId>junit-vintage-engine</artifactId>
 				</exclusion>
 			</exclusions>
-		</dependency>
+		</dependency>	
 	</dependencies>
+	
+	<profiles>
+		 <profile>
+			<id>local</id>
+			<activation>
+                <activeByDefault>true</activeByDefault>
+            </activation>
+            <properties>
+		        <activatedProperties>local</activatedProperties>
+		    </properties>
+            <dependencies>
+            	<dependency>
+		            <groupId>com.h2database</groupId>
+		            <artifactId>h2</artifactId>
+		            <scope>runtime</scope>
+		        </dependency>
+            </dependencies>
+		</profile>
+		<profile>
+			<id>cf</id>
+			<activation>
+				<activeByDefault>false</activeByDefault>
+			</activation>
+			<properties>
+		        <activatedProperties>cf</activatedProperties>
+		    </properties>
+		    
+		</profile>
+	</profiles>
 
 	<build>
 		<plugins>
