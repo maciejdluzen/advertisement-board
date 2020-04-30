@@ -55,7 +55,7 @@
 		    <artifactId>spring-cloud-spring-service-connector</artifactId>
 		  </dependency>
 		  
-		  <!-- APIs for servlets and injection -->
+		   <!-- APIs for servlets and injection -->
 		<dependency>
 			<groupId>javax.servlet</groupId>
 			<artifactId>javax.servlet-api</artifactId>
@@ -66,7 +66,8 @@
 			<artifactId>javax.inject</artifactId>
 			<version>1</version>
 		</dependency>
-		 <!-- JSON conversion -->
+	
+		  <!-- JSON conversion -->
 		<dependency>
 			<groupId>com.fasterxml.jackson.core</groupId>
 			<artifactId>jackson-databind</artifactId>
@@ -97,39 +98,44 @@
         		</exclusion>
     		</exclusions>
 		</dependency>
-		
 		<!-- EclipseLink as JPA implementation -->
 		<dependency>
     		<groupId>org.eclipse.persistence</groupId>
     		<artifactId>org.eclipse.persistence.jpa</artifactId>
     		<version>2.6.2</version>
 		</dependency>
-		  
-		  <!-- https://mvnrepository.com/artifact/com.sap.cloud.sdk.s4hana/s4hana-connectivity -->
+		 
         <dependency>
             <groupId>com.sap.cloud.sdk.s4hana</groupId>
             <artifactId>s4hana-connectivity</artifactId>
             <version>3.11.0</version>
         </dependency>
-
-        <!-- https://mvnrepository.com/artifact/org.cloudfoundry.identity/cloudfoundry-identity-client-lib -->
+	
+        <!-- THIS DEPENDENCY CAUSES HUGE PROBLEMS!!!
         <dependency>
             <groupId>org.cloudfoundry.identity</groupId>
             <artifactId>cloudfoundry-identity-client-lib</artifactId>
             <version>4.19.2</version>
         </dependency>
-
+		https://mvnrepository.com/artifact/org.cloudfoundry.identity/cloudfoundry-identity-client-lib -->
+		
         <!-- https://mvnrepository.com/artifact/com.sap.cloud.servicesdk/odatav2-connectivity -->
         <dependency>
             <groupId>com.sap.cloud.servicesdk</groupId>
             <artifactId>odatav2-connectivity</artifactId>
             <version>1.37.0</version>
         </dependency>
-		 
+	  	
 		<dependency>
 		    <groupId>com.sap.cloud.db.jdbc</groupId>
 		    <artifactId>ngdbc</artifactId>
 		    <version>2.3.55</version>
+		</dependency>
+		<!--  Dependency allowing to automatically get the credentials wired up -->
+		<dependency>
+			<groupId>io.pivotal.cfenv</groupId>
+			<artifactId>java-cfenv-boot</artifactId>
+			<version>2.1.0.RELEASE</version>
 		</dependency>
 		
 		<dependency>

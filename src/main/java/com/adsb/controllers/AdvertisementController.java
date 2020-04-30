@@ -67,7 +67,7 @@ public class AdvertisementController {
     @GetMapping("/{id}")
     public Advertisement advertisementById(@PathVariable("id") @Min(0) Long id) throws NotFoundException {
         throwIfNonexisting(id);
-        return adRepository.getOne(id);
+        return adRepository.findById(id).get();
     }
     
     @PostMapping

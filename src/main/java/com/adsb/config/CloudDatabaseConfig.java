@@ -1,19 +1,45 @@
 package com.adsb.config;
 
+
 import javax.sql.DataSource;
 
 import org.springframework.beans.factory.annotation.Value;
+
 import org.springframework.boot.jdbc.DataSourceBuilder;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
+
 import org.springframework.context.annotation.Profile;
 
 import com.zaxxer.hikari.HikariDataSource;
+
 
 @Configuration
 @Profile("cloud")
 public class CloudDatabaseConfig {
 
+	/*
+	@Bean
+	@Primary
+	@Profile("cloud")
+	public DataSourceProperties dataSourceProperties() {
+		CfJdbcEnv cfJdbcEnv = new CfJdbcEnv();
+		DataSourceProperties properties = new DataSourceProperties();
+		CfCredentials hanaCredentials = cfJdbcEnv.findCredentialsByTag("hana");
+
+		if (hanaCredentials != null) {
+
+			String uri = hanaCredentials.getUri("hana");
+			properties.setUrl(uri);
+			properties.setUsername(hanaCredentials.getUsername());
+			properties.setPassword(hanaCredentials.getPassword());
+		}
+
+		return properties;
+	}
+	*/
+	
+	
 	@Bean
 	public DataSource dataSource(@Value("${hana.url}")final String url,
 			@Value("${hana.user}")final String user,
@@ -28,4 +54,5 @@ public class CloudDatabaseConfig {
 				.password(password)
 				.build();	
 	}
+	
 }
